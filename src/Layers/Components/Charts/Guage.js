@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import { getBiorythmicFunctions } from '../../Database/getBiorythmicFunctions'
 import { db } from '../../../firebase'
 import { BiorythmicCalculations } from '../../Logic/BiorythmCalculations'
 import { Percentage } from '../../Logic/Percentage'
+import { Maximum } from '../../Logic/CalculateMaxima'
 import '../../CSS/Components/Charts/Guage.css'
 
-var data
 export class Guage extends Component {
 
     state = {
         show: true,
         data: null,
+        max:null,
     }
 
     componentDidMount() {
@@ -32,13 +32,17 @@ export class Guage extends Component {
             percentage_results = Percentage(biorythm_results)
 
             this.setState({data:percentage_results})
+
+            var sortedArray = Maximum(percentage_results)
+            console.log(sortedArray)
+            this.setState({max:sortedArray})
         })
 
         //getting sounds from db.
     }
 
     render() {
-        if (this.state.show) {
+        if (this.state.data!==null) {
             return (
                 <div>
                     {
@@ -60,6 +64,17 @@ export class Guage extends Component {
                             }
                         })
                     }
+                    <div>
+                        {
+                            this.state.max !== null ? (
+                                <div>
+                                    Max: {this.state.max[0].name} : {this.state.max[0].value} %
+                                </div>
+                            ) : (
+                                <div></div>
+                            )
+                        }
+                    </div>
                 </div>
             )
         }
