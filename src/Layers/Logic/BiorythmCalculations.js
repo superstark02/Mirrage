@@ -1,8 +1,7 @@
-const { NumberOfDaysLived } = require("./NumberOfDaysLived")
+export function BiorythmicCalculations (constant,number_of_days_lived){
 
-export function BiorythmicCalculations (constant,dob){
-
-    var t = NumberOfDaysLived(dob)
-
+    var t = number_of_days_lived
+    
     return Math.sin(2*Math.PI*t/constant)
 }
+

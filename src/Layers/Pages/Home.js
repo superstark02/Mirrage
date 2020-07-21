@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PhysicalChart from '../Components/Charts/PhysicalChart'
 import Guage from '../Components/Charts/Guage'
 import { NumberOfDaysLived } from '../Logic/NumberOfDaysLived'
 import '../CSS/Transitions.css'
@@ -9,7 +8,7 @@ export class Home extends Component {
     state = {
         user_name: "",
         temp: null,
-        number_of_days_lived: 0,
+        number_of_days_lived: -1,
         name_screen_transition: '',
         dob_screen_transition: '',
         result_screen_transition: '',
@@ -51,14 +50,15 @@ export class Home extends Component {
                             <div className="wrap" style={{ height: "80vh", flexDirection: "column" }} >
 
                                 <div style={{ position: "absolute", top: "10%" }} >
-                                    <h2>Hey {this.state.user_name}. Please enter DOB </h2><br />
+                                    <h2>Hey {this.state.user_name}</h2><br />
                                 </div>
 
-                                {this.state.user_name === "" || this.state.user_name.length < 2 ? (
+                                {this.state.user_name === "" ? (
                                     <div></div>
                                 ) : (
                                         <div className={"wrap " + this.state.dob_screen_transition}>
                                             <div>
+                                                <h3>Please Enter DOB.</h3>
                                                 <div className="wrap" >
                                                     <input type="date" onChange={(e) => { this.calculate_number_of_days_lived(e.target.value) }} ></input>
                                                 </div>
@@ -66,27 +66,17 @@ export class Home extends Component {
                                         </div>
                                     )}
 
-                                {this.state.number_of_days_lived === 0 ? (
+                                {this.state.number_of_days_lived === -1 ? (
                                     <div></div>
                                 ) : (
-                                        <div className={"wrap " + this.state.result_screen_transition} style={{ flexDirection: "column" }}>
-                                            <div className="wrap" >
-                                                <h5>Physical <Guage constant={23} dob={this.state.number_of_days_lived} /></h5>
-                                                <h5>Emotional <Guage constant={33} dob={this.state.number_of_days_lived} /></h5>
-                                                <h5>Intellectual <Guage constant={25} dob={this.state.number_of_days_lived} /></h5>
-                                            </div>
+                                        <div className={"wrap " + this.state.result_screen_transition}>
+                                            <div>
+                                                <Guage number_of_days_lived={this.state.number_of_days_lived} />
 
-                                            <div className="wrap" >
-                                                <div>
-                                                    <h4>Graph : Physical </h4>
-                                                    <PhysicalChart number_of_days_lived={this.state.number_of_days_lived} />
+                                                <div className="wrap" >
+                                                    <button onClick={() => { window.location.reload() }} >START AGAIN</button>
                                                 </div>
                                             </div>
-
-                                            <div className="wrap" >
-                                                <button onClick={() => { window.location.reload() }} >START AGAIN</button>
-                                            </div>
-
                                         </div>
                                     )}
                             </div>

@@ -3,6 +3,7 @@
   animation-duration: 1s;  
   animation-fill-mode: forwards;
   position: absolute;
+  width: 100%;
 }
 
 .exit{
