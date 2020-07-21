@@ -45,7 +45,7 @@ export default function PhysicalChart(props) {
     }, [data])
 
     function generateData() {
-        var t = NumberOfDaysLived(props.dob)
+        var t = props.number_of_days_lived
         for (var days = 0; days < 31; days++) {
             var P = Math.sin(2 * Math.PI * (t + days) / 23)
             data.push(P)
