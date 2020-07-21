@@ -1,0 +1,24 @@
+.enter{
+  animation-name: enter;
+  animation-duration: 1s;  
+  animation-fill-mode: forwards;
+  position: absolute;
+}
+
+.exit{
+    animation-name: exit;
+    animation-duration: 1s;  
+    animation-fill-mode: forwards;
+    position: absolute;
+    width: 100%;
+}
+
+@keyframes enter {
+    from {left: 100vw;}
+    to {left: 0vw}
+  }
+
+@keyframes exit {
+    from {left: 0vw;}
+    to {left: -100vw}
+  }
