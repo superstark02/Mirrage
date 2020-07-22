@@ -4,13 +4,16 @@ import { BiorythmicCalculations } from '../../Logic/BiorythmCalculations'
 import { Percentage } from '../../Logic/Percentage'
 import { Maximum } from '../../Logic/CalculateMaxima'
 import '../../CSS/Components/Charts/Guage.css'
+import Sound from 'react-sound';
 
 export class Guage extends Component {
 
     state = {
         show: true,
         data: null,
-        max:null,
+        max: null,
+        sounds: null,
+        sound_state: Sound.status.PAUSED,
     }
 
     componentDidMount() {
@@ -31,31 +34,48 @@ export class Guage extends Component {
 
             percentage_results = Percentage(biorythm_results)
 
-            this.setState({data:percentage_results})
+            this.setState({ data: percentage_results })
 
             var sortedArray = Maximum(percentage_results)
-            console.log(sortedArray)
-            this.setState({max:sortedArray})
+            
+            this.setState({ max: sortedArray })
         })
 
         //getting sounds from db.
+        db.collection("Functions").doc("SoundVolumes").collection("Physical").get().then(snapshot => {
+            var sounds = []
+            snapshot.forEach(doc => {
+                sounds.push(doc.data())
+            })
+
+            this.setState({sounds:sounds})
+        })
+    }
+
+    playPause = () => {
+        if(this.state.sound_state===Sound.status.PLAYING){
+            this.setState({sound_state:Sound.status.PAUSED})
+        }
+        else{
+            this.setState({sound_state:Sound.status.PLAYING})
+        }
     }
 
     render() {
-        if (this.state.data!==null) {
+        if (this.state.data !== null) {
             return (
                 <div>
                     {
                         this.state.data &&
                         this.state.data.map(item => {
-                            if(item.name === "Physical" || item.name === "Emotional" || item.name === "Intellectual"){
+                            if (item.name === "Physical" || item.name === "Emotional" || item.name === "Intellectual") {
                                 return (
                                     <div className="guage-container-primary" >
                                         {item.name}: {item.value}%
                                     </div>
                                 )
                             }
-                            else{
+                            else {
                                 return (
                                     <div className="guage-container-secondary" >
                                         {item.name}: {item.value}%
@@ -71,9 +91,28 @@ export class Guage extends Component {
                                     Max: {this.state.max[0].name} : {this.state.max[0].value} %
                                 </div>
                             ) : (
-                                <div></div>
-                            )
+                                    <div></div>
+                                )
                         }
+                    </div>
+
+                    {
+                        this.state.sounds &&
+                        this.state.sounds.map(sound => {
+                            return (
+                                <Sound
+                                    url={sound.url}
+                                    playStatus={this.state.sound_state}
+                                    playFromPosition={0}
+                                />
+                            )
+                        })
+                    }
+
+                    <div style={{ margin: "20px" }} >
+                        <button onClick={this.playPause} >
+                            PLAY | STOP
+                        </button>
                     </div>
                 </div>
             )
