@@ -49,14 +49,14 @@ export class Home extends Component {
                     ) : (
                             <div className="wrap" style={{ height: "80vh", flexDirection: "column" }} >
 
-                                <div style={{ position: "absolute", top: "10%" }} >
+                                <div style={{ position: "absolute", top: "5%" }} >
                                     <h2>Hey {this.state.user_name}</h2><br />
                                 </div>
 
                                 {this.state.user_name === "" ? (
                                     <div></div>
                                 ) : (
-                                        <div className={"wrap " + this.state.dob_screen_transition}>
+                                        <div className={"wrap " + this.state.dob_screen_transition} style={{height:"100vh"}} >
                                             <div>
                                                 <h3>Please Enter DOB.</h3>
                                                 <div className="wrap" >

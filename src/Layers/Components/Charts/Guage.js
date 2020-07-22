@@ -14,6 +14,7 @@ export class Guage extends Component {
         max: null,
         sounds: null,
         sound_state: Sound.status.PAUSED,
+        button_label:"PLAY"
     }
 
     componentDidMount() {
@@ -31,34 +32,49 @@ export class Guage extends Component {
             for (var i = 0; i < functions.length; i++) {
                 biorythm_results.push({ name: functions[i].name, value: BiorythmicCalculations(functions[i].const, this.props.number_of_days_lived) })
             }
-
+            
             percentage_results = Percentage(biorythm_results)
 
             this.setState({ data: percentage_results })
 
             var sortedArray = Maximum(percentage_results)
-            
+
             this.setState({ max: sortedArray })
-        })
 
-        //getting sounds from db.
-        db.collection("Functions").doc("SoundVolumes").collection("Physical").get().then(snapshot => {
-            var sounds = []
-            snapshot.forEach(doc => {
-                sounds.push(doc.data())
+            //getting sounds from db.
+            db.collection("Functions").doc("SoundVolumes").collection(sortedArray[0].name).get().then(snapshot => {
+                var sounds = []
+                snapshot.forEach(doc => {
+                    sounds.push(doc.data())
+                })
+
+                this.setState({ sounds: sounds })
             })
-
-            this.setState({sounds:sounds})
         })
+
+
     }
 
     playPause = () => {
-        if(this.state.sound_state===Sound.status.PLAYING){
-            this.setState({sound_state:Sound.status.PAUSED})
+        if (this.state.sound_state === Sound.status.PLAYING) {
+            this.setState({ sound_state: Sound.status.PAUSED })
+            this.setState({button_label:"PLAY"})
         }
-        else{
-            this.setState({sound_state:Sound.status.PLAYING})
+        else {
+            this.setState({ sound_state: Sound.status.PLAYING })
+            this.setState({button_label:"PAUSE"})
         }
+    }
+
+    changeVolume = (vol,id) => {
+        var temp_array = this.state.sounds
+
+        for(var i = 0; i < temp_array.length ; i++){
+            if(temp_array[i].url === id){
+                temp_array[i].volume = vol
+            }
+        }
+        this.setState({sounds:temp_array})
     }
 
     render() {
@@ -100,18 +116,24 @@ export class Guage extends Component {
                         this.state.sounds &&
                         this.state.sounds.map(sound => {
                             return (
-                                <Sound
-                                    url={sound.url}
-                                    playStatus={this.state.sound_state}
-                                    playFromPosition={0}
-                                />
+                                <div>
+                                    <Sound
+                                        url={sound.url}
+                                        playStatus={this.state.sound_state}
+                                        playFromPosition={0}
+                                        volume={sound.volume}
+                                    />
+                                    <div>
+                                        volume: <input type="number" value={sound.volume} onChange={(e)=>{this.changeVolume(e.target.value, sound.url)}} />
+                                    </div>
+                                </div>
                             )
                         })
                     }
 
-                    <div style={{ margin: "20px" }} >
+                    <div className="wrap" >
                         <button onClick={this.playPause} >
-                            PLAY | STOP
+                            {this.state.button_label}
                         </button>
                     </div>
                 </div>
