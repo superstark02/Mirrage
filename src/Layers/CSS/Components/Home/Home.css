@@ -1,0 +1,16 @@
+.home-name{
+    font-size: 40px;
+    position: absolute;
+    top: 5%;
+}
+.dob-content{
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.guage-playbutton-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}

@@ -33,7 +33,7 @@ export class AppBar extends Component {
                         </div>
                         <div>
                             <Link to="/sign-in" >
-                                Login/Signup
+                                Login | Signup
                             </Link>
                         </div>
                     </div>

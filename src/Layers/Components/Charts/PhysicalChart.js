@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import '../../CSS/Components/Charts/PhysicalChart.css'
 
 export default function PhysicalChart(props) {
     const [data] = useState([])
@@ -53,8 +54,8 @@ export default function PhysicalChart(props) {
 
     return (
         <React.Fragment>
-            <div className="wrap" >
-                <svg ref={svgRef} style={{ backgroundColor: 'lightgrey' }} >
+            <div className="wrap chart-container" >
+                <svg ref={svgRef} style={{ width:"70%" }} >
                 </svg>
             </div>
         </React.Fragment>

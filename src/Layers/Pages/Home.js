@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Guage from '../Components/Charts/Guage'
 import { NumberOfDaysLived } from '../Logic/NumberOfDaysLived'
 import '../CSS/Transitions.css'
+import '../CSS/Components/Home/Home.css'
+import PhysicalChart from '../Components/Charts/PhysicalChart'
 
 export class Home extends Component {
 
@@ -27,7 +29,7 @@ export class Home extends Component {
 
     render() {
         return (
-            <div className="wrap" style={{ height: "100vh", flexDirection: "column" }} >
+            <div className="wrap" style={{ height: "70vh", flexDirection: "column" }} >
 
                 <div className={this.state.name_screen_transition} >
 
@@ -47,18 +49,20 @@ export class Home extends Component {
                     this.state.user_name === "" ? (
                         <div></div>
                     ) : (
-                            <div className="wrap" style={{ height: "80vh", flexDirection: "column" }} >
+                            <div style={{ height: "70vh", flexDirection: "column" }} >
 
-                                <div style={{ position: "absolute", top: "5%" }} >
-                                    <h2>Hey {this.state.user_name}</h2><br />
+                                <div className="home-name" >
+                                    Hey <b>{this.state.user_name}</b>
                                 </div>
 
                                 {this.state.user_name === "" ? (
                                     <div></div>
                                 ) : (
-                                        <div className={"wrap " + this.state.dob_screen_transition} style={{height:"100vh"}} >
+                                        <div className={"wrap " + this.state.dob_screen_transition} style={{ height: "70vh" }} >
                                             <div>
-                                                <h3>Please Enter DOB.</h3>
+                                                <div className="dob-content" >
+                                                    For Mirrage to provide you with further details <br /> please enter your date of birth.
+                                                </div>
                                                 <div className="wrap" >
                                                     <input type="date" onChange={(e) => { this.calculate_number_of_days_lived(e.target.value) }} ></input>
                                                 </div>
@@ -69,12 +73,15 @@ export class Home extends Component {
                                 {this.state.number_of_days_lived === -1 ? (
                                     <div></div>
                                 ) : (
-                                        <div className={"wrap " + this.state.result_screen_transition}>
+                                        <div className={" " + this.state.result_screen_transition}>
                                             <div>
+                                                <PhysicalChart number_of_days_lived={this.state.number_of_days_lived} />
+                                            </div>
+                                            <div className="guage-playbutton-container" >
                                                 <Guage number_of_days_lived={this.state.number_of_days_lived} />
 
-                                                <div className="wrap" >
-                                                    <button onClick={() => { window.location.reload() }} >START AGAIN</button>
+                                                <div style={{backgroundColor:"red",width:"200px",height:"200px"}} >
+
                                                 </div>
                                             </div>
                                         </div>
