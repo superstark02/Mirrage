@@ -87,30 +87,39 @@ export class Guage extends Component {
                     <div>
                         {
                             this.state.max !== null ? (
-                                <div style={{display:"flex",textAlign:"center"}} >
-                                    <div>
+                                <div>
+                                    <div style={{ display: "flex", textAlign: "center" }} >
                                         <div>
-                                            Max: {this.state.max[0].name} : {this.state.max[0].value} %
+                                            <div>
+                                                Max: {this.state.max[0].name} : {this.state.max[0].value} %
                                         </div>
-                                        <div style={{ height: "200px" }} >
-                                            <Radar data={[this.state.max[0].value / 100, 1 - this.state.max[0].value / 100]} />
+                                            <div style={{ height: "200px" }} >
+                                                <Radar data={[this.state.max[0].value / 100, 1 - this.state.max[0].value / 100]} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                Max: {this.state.max[1].name} : {this.state.max[1].value} %
+                                        </div>
+                                            <div style={{ height: "200px" }} >
+                                                <Radar data={[this.state.max[1].value / 100, 1 - this.state.max[1].value / 100]} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                Max: {this.state.max[2].name} : {this.state.max[2].value} %
+                                        </div>
+                                            <div style={{ height: "200px" }} >
+                                                <Radar data={[this.state.max[2].value / 100, 1 - this.state.max[2].value / 100]} />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div>
-                                            Max: {this.state.max[1].name} : {this.state.max[1].value} %
-                                        </div>
-                                        <div style={{ height: "200px" }} >
-                                            <Radar data={[this.state.max[1].value / 100, 1 - this.state.max[1].value / 100]} />
-                                        </div>
+                                    <div style={{marginTop:"60px",fontSize:"17px"}} >
+                                        It looks like you would be best suited to work on <br/>
+                                        these aspects today.
                                     </div>
-                                    <div>
-                                        <div>
-                                            Max: {this.state.max[2].name} : {this.state.max[2].value} %
-                                        </div>
-                                        <div style={{ height: "200px" }} >
-                                            <Radar data={[this.state.max[2].value / 100, 1 - this.state.max[2].value / 100]} />
-                                        </div>
+                                    <div style={{fontSize:"12px"}} >
+                                        View detailed analysis.
                                     </div>
                                 </div>
                             ) : (

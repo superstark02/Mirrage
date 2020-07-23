@@ -52,7 +52,7 @@ export class Home extends Component {
                             <div style={{ height: "70vh", flexDirection: "column" }} >
 
                                 <div className="home-name" >
-                                    Hey <b>{this.state.user_name}</b>
+                                    Hey, <b>{this.state.user_name}!</b>
                                 </div>
 
                                 {this.state.user_name === "" ? (
@@ -79,17 +79,12 @@ export class Home extends Component {
                                             </div>
                                             <div className="guage-playbutton-container" >
                                                 <Guage number_of_days_lived={this.state.number_of_days_lived} />
-
-                                                <div style={{backgroundColor:"red",width:"200px",height:"200px"}} >
-
-                                                </div>
                                             </div>
                                         </div>
                                     )}
                             </div>
                         )
                 }
-
             </div>
         )
     }

@@ -1,7 +1,11 @@
 .home-name{
     font-size: 40px;
     position: absolute;
+    text-align: center;
+    right: 0;
+    left: 0;
     top: 5%;
+    z-index: -1;
 }
 .dob-content{
     text-align: center;
