@@ -5,6 +5,9 @@ import { Percentage } from '../../Logic/Percentage'
 import { Maximum } from '../../Logic/CalculateMaxima'
 import '../../CSS/Components/Charts/Guage.css'
 import Sound from 'react-sound';
+import useResizeObserver from './useResizeObserver'
+import { useRef, useEffect, useState } from 'react';
+import * as d3 from 'd3';
 
 export class Guage extends Component {
 
@@ -104,7 +107,12 @@ export class Guage extends Component {
                         {
                             this.state.max !== null ? (
                                 <div>
-                                    Max: {this.state.max[0].name} : {this.state.max[0].value} %
+                                    <div>
+                                        Max: {this.state.max[0].name} : {this.state.max[0].value} %
+                                    </div>
+                                    <div style={{height:"200px"}} >
+                                        <Radar data={[this.state.max[0].value/100,1-this.state.max[0].value/100]} />
+                                    </div>
                                 </div>
                             ) : (
                                     <div></div>
@@ -150,3 +158,42 @@ export class Guage extends Component {
 }
 
 export default Guage
+
+
+function Radar({data}){
+    const svgRef  = useRef()
+    const wrapperRef = useRef()
+    const dimensions = useResizeObserver(wrapperRef)
+
+    useEffect(() => {
+        const svg = d3.select(svgRef.current)
+        if(!dimensions)return;
+
+        const arcGenerator = d3.arc()
+                                .innerRadius(85)
+                                .outerRadius(100)
+
+        const pieGenerator = d3.pie()
+        const instructions = pieGenerator(data)
+
+        svg.selectAll(".slice")
+            .data(instructions)
+            .join("path")
+            .attr("class", "slice")
+            .attr("stroke","none")
+            .attr("fill", (instructions, index)=> index === 0? "#DE5B49" : "#324D5C" )
+            .style(
+                "transform",
+                "translate("+dimensions.width / 2 +"px, "+dimensions.height+"px)"
+            )
+            .transition()
+            .attr("d", instruction => arcGenerator(instruction))
+
+    }, [data,dimensions])
+
+    return(
+        <div ref={wrapperRef}>
+            <svg ref={svgRef} ></svg>
+        </div>
+    )
+}

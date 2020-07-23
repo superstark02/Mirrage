@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import { NumberOfDaysLived } from '../../Logic/NumberOfDaysLived';
 
 export default function PhysicalChart(props) {
     const [data] = useState([])

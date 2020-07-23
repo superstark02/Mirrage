@@ -27,7 +27,7 @@ export class Home extends Component {
 
     render() {
         return (
-            <div className="wrap" style={{ height: "70vh", flexDirection: "column" }} >
+            <div className="wrap" style={{ height: "100vh", flexDirection: "column" }} >
 
                 <div className={this.state.name_screen_transition} >
 
