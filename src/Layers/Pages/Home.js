@@ -4,6 +4,7 @@ import { NumberOfDaysLived } from '../Logic/NumberOfDaysLived'
 import '../CSS/Transitions.css'
 import '../CSS/Components/Home/Home.css'
 import PhysicalChart from '../Components/Charts/PhysicalChart'
+import AttributeTabs from '../Components/Home/AttributeTabs'
 
 export class Home extends Component {
 
@@ -14,6 +15,7 @@ export class Home extends Component {
         name_screen_transition: '',
         dob_screen_transition: '',
         result_screen_transition: '',
+        activity_screen_transition:''
     }
 
     setName = (e) => {
@@ -25,6 +27,10 @@ export class Home extends Component {
         var temp = NumberOfDaysLived(dob);
         this.setState({ number_of_days_lived: temp })
         this.setState({ dob_screen_transition: "exit", result_screen_transition: "enter" })
+    }
+
+    show_activity_screen = () => {
+        this.setState({ result_screen_transition: "exit", activity_screen_transition: "enter" })
     }
 
     render() {
@@ -79,6 +85,29 @@ export class Home extends Component {
                                             </div>
                                             <div className="guage-playbutton-container" >
                                                 <Guage number_of_days_lived={this.state.number_of_days_lived} />
+                                                <div className="wrap" style={{ width: "auto" }} >
+                                                    <button onClick={this.show_activity_screen} >Next Page</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                {this.state.activity_screen_transition === "" ? (
+                                    <div></div>
+                                ) : (
+                                        <div className={"wrap " + this.state.activity_screen_transition}>
+                                            <div className="tabs-container" >
+                                                <div>
+                                                    Here are most suitable tunes for today.
+                                                </div>
+                                                <div>
+                                                    <AttributeTabs number_of_days_lived={this.state.number_of_days_lived} />
+                                                </div>
+                                            </div>
+                                            <div className="tabs-container" >
+                                                <div>
+                                                    Here are most suitable tunes for today.
+                                                </div>
                                             </div>
                                         </div>
                                     )}

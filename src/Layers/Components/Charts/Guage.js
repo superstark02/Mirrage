@@ -43,19 +43,8 @@ export class Guage extends Component {
             var sortedArray = Maximum(percentage_results)
 
             this.setState({ max: sortedArray })
-
-            //getting sounds from db.
-            db.collection("Functions").doc("SoundVolumes").collection(sortedArray[0].name).get().then(snapshot => {
-                var sounds = []
-                snapshot.forEach(doc => {
-                    sounds.push(doc.data())
-                })
-
-                this.setState({ sounds: sounds })
-            })
         })
-
-
+        
     }
 
     playPause = () => {
@@ -143,7 +132,7 @@ export class Guage extends Component {
 export default Guage
 
 
-function Radar({ data }) {
+export function Radar({ data }) {
     const svgRef = useRef()
     const wrapperRef = useRef()
     const dimensions = useResizeObserver(wrapperRef)

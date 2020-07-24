@@ -1,3 +1,7 @@
+body{
+    background-color: #f8f3f0;
+    color: #a56227;
+}
 .wrap{
     display: flex;
     justify-content: center;
