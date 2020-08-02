@@ -25,6 +25,7 @@ Flow of the code:
     - 
 
 Explanation Of Code By Page
+
 1) Home Page
     - The name of the user is stored in this.state.user_name
     - Transitions:
@@ -48,4 +49,16 @@ Explanation Of Code By Page
             - then three pie charts of top 3 attributes are formed.
         - In line chart
             - all the function names and their constants are fetched from database by getCollection(folderName)
+            - their percentage for the day is calculated by BiorythmicCalculations(constant, number_of_days_lived)
+            - the names and percentage calculated are stored in 'data' array 
+            - data[] is sorted by Maximum()
+            - top 3 attributes are taken and passed to BiorythmicCalculationsForWeek(constant of attribute, number_of_days_lived)
+            - BiorythmicCalculationsForWeek(constant of attribute, number_of_days_lived) returns array of attribute percentage for a week
+            - Then this array is displayed in cards.
+2) Sounds Page
+    - same <PieChart/> component is used here, number of days lived is provided as props
+    - <Sounds/> is used for rendering sounds
+    - sounds are fetched for top attributes returned by Maximum()
+    - sounds are fetched by getSoounds(name_of_folder) from database
+    
             
