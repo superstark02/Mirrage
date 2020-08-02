@@ -23,3 +23,17 @@ Flow of the code:
     - this.state.number_of_days_lived is passed through url ( for eg. this.state.number_of_days_lived = 22, so url is localhost3000/22 )
     - on this page same functions are used, 
     - 
+
+Explanation Of Code By Page
+1) Home Page
+    - The name of the user is stored in this.state.user_name
+    - Transitions:
+        - enter : css animations from right to left
+        - exit : css animations from right to left (same as above)
+        - when submit is clicked, currently displayed div is given classname:'exit', proceeding div is given classname:'enter'
+    - On name submission:
+        - div containig name input is set to classname:'exit' and div containing date input is set to classname:'enter'
+    - On date submission 
+        - div containing date input is set to classname:'exit' and and dic containing charts is set to classname:'enter'
+        - the input (stored in this.state.dob) is passed to NumberOfDaysLived() which returns number of days lived by the user.
+    - 
