@@ -1,4 +1,4 @@
-Documentation Mirrage.
+<b>Documentation Mirrage.</b>
 
 The code has following layers:
 1) Components - Front End Of Components Js (like nav bar, charts)
@@ -36,4 +36,16 @@ Explanation Of Code By Page
     - On date submission 
         - div containing date input is set to classname:'exit' and and dic containing charts is set to classname:'enter'
         - the input (stored in this.state.dob) is passed to NumberOfDaysLived() which returns number of days lived by the user.
-    - 
+    - Chart Formation
+        - There are two types of charts:
+            - Line Chart ( requires array of data )
+            - Pie Chart ( reqiures a number in decimal ( 0 , 1 ) )
+        - In pie chart <PieChart/>
+            - all the function names and their constants are fetched from database by getCollection(folderName)
+            - their percentage for the day is calculated by BiorythmicCalculations(constant, number_of_days_lived)
+            - the names and percentage calculated are stored in 'data' array 
+            - data[] is sorted by Maximum()
+            - then three pie charts of top 3 attributes are formed.
+        - In line chart
+            - all the function names and their constants are fetched from database by getCollection(folderName)
+            
